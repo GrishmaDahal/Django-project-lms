@@ -47,3 +47,22 @@ class Teacher(models.Model):
     
     def __str__(self):
         return self.full_name
+
+class Assignment(models.Model):
+    title= models.CharField(max_length=100,  null=False, blank=False, verbose_name= "")
+    start_date = models.DateField(default='Start Date', null=False, blank=False, verbose_name='Start Date')
+    end_date = models.DateField(default='End Date', null=False, blank=False, verbose_name='End Date')
+    question_file = models.FileField(upload_to='assignment/questions/', null=True, blank=False, verbose_name='Select Assignment File')
+    question = models.FileField(null=True, blank=True,verbose_name='Assignment Question')
+    remark =  models.CharField(max_length=100, null=False,blank=False,verbose_name='Assignment Details')
+    full_marks = models.FloatField(blank=False, null=False)
+    teacher = models.ForeignKey(Teacher,on_delete= models.CASCADE,verbose_name='Uploaded By')
+    
+    class Meta:
+        verbose_name = 'assignment'
+        verbose_name_plural = 'assignments'
+        ordering= ['-title']
+        
+    def __str__(self):
+        return self.title
+        
