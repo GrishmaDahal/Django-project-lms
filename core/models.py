@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 # Create your models here.
+SUBJECT = [ 
+           ('BCT001','Software engineering'),
+           ('BCT002','System Analysis and Design'),
+           ('BCT003','Operating Systems'),
+           ('BCT004','Object Oriented Programming'),
+           ('BCT005','Electronics and Instrumentation')
+        ]
+
 class Student(models.Model):
     SEMESTER= [
         ('SEM_ONE','Semester One'),
@@ -57,6 +66,7 @@ class Assignment(models.Model):
     remark =  models.CharField(max_length=100, null=False,blank=False,verbose_name='Assignment Details')
     full_marks = models.FloatField(blank=False, null=False)
     teacher = models.ForeignKey(Teacher,on_delete= models.CASCADE,verbose_name='Uploaded By')
+    subject = models.CharField(max_length = 20, choices = SUBJECT, default='N/A',verbose_name='Subject')    
     
     class Meta:
         verbose_name = 'assignment'
@@ -66,3 +76,28 @@ class Assignment(models.Model):
     def __str__(self):
         return self.title
         
+#model banaune materials haru, slides haru rakhera 
+#teachers ko ma aaye jastai gari material ko ni banaune 
+class Materials(models.Model):
+    MATERIALS = [
+        ('SLIDES', 'Chapter Slides'),
+        ('TEXT_BOOK', 'Text Book'),
+        ('REFERENCE_BOOK', 'Word files'),
+        ('OLD_QUESTIONS', 'Question Collections'),
+        ('AUDIO_BOOK','An Audio Book')
+    ]
+    title= models.CharField(max_length=100, blank=False, null=True, verbose_name = "Chapter Full Name")
+    Materials = models.CharField(max_length=50, choices=MATERIALS, default='N/A', null=True, blank= True ,verbose_name ="Materials")
+    descriptions = models.CharField(max_length=255, null=False, blank=False, default='N/A',verbose_name='Description ')
+    subject = models.CharField(max_length = 20, choices = SUBJECT,default='N/A', verbose_name='Subject') 
+    material_file = models.FileField(upload_to='material/', null=False,blank= False, default='N/A', verbose_name='Select File')
+    upload_date = models.DateTimeField(default=datetime.now(), verbose_name='Upload Time')
+    teacher = models.ForeignKey(Teacher, on_delete= models.CASCADE, default='N/A')
+    class Meta:
+        verbose_name='material' 
+        verbose_name_plural = "materials"
+        ordering = ['-title']
+
+    def __str__(self):
+        return self.chapter_name
+  
