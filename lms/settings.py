@@ -20,13 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!*)*s5bym76(de36)))l+xi!b&%zk4hgwc391*x=60u5wyeq%)'
+SECRET_KEY = 'django-insecure-fin%=f3)#o$mg1hw=jzoedkeu$3wfkv5oe!(dq0ek_k$t1ceu)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# login and logot redirect to profile page 
+LOGIN_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -39,11 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    "django_bootstrap5",
+    'django_bootstrap5',
+    'accounts',
 ]
 
 MIDDLEWARE = [
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'lms.urls'
@@ -83,8 +85,8 @@ DATABASES = {
         'NAME': 'django_lms',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD':'1234',
-        'PORT' : 3306
+        'PASSWORD': '1234',
+        'PORT': 3306
     }
 }
 
@@ -124,7 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS= [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
